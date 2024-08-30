@@ -83,7 +83,8 @@ WCSimDetectorConstruction::WCSimDetectorConstruction(G4int DetConfig,WCSimTuning
   //SetANNIEPhase2Geometryv4();
   //SetANNIEPhase2Geometryv5();
   //SetANNIEPhase2Geometryv6();
-  SetANNIEPhase2Geometryv7();
+  //SetANNIEPhase2Geometryv7();
+  SetANNIEPhase3Geometryv0();
 
   //----------------------------------------------------- 
   // Set whether or not Pi0-specific info is saved
@@ -175,7 +176,10 @@ WCSimDetectorConstruction::~WCSimDetectorConstruction(){
     delete visatt;
   }
   mrdvisattributes.clear();
-  
+  for(auto visatt : m_ArDewarVA){
+    delete visatt;
+  }
+  m_ArDewarVA.clear();
 }
 
 G4VPhysicalVolume* WCSimDetectorConstruction::Construct()
@@ -309,16 +313,16 @@ G4VPhysicalVolume* WCSimDetectorConstruction::Construct()
     }
   }
   
-  //G4cout<<"Writing GDML output file"<<G4endl;
-  //G4String GDMLOutFilename = "anniegeomv3.gdml";
-  //G4GDMLParser parser;  // Write GDML file
-  //parser.Write(GDMLOutFilename, logicExpHall);
-  //G4cout<<"GDML file "<<GDMLOutFilename<<" written"<<G4endl;
+  if( WriteGDMLFile ){
+    G4cout<<"Writing GDML output file"<<G4endl;
+    G4String GDMLOutFilename = "WCSimANNIEGeometry.gdml";
+    G4GDMLParser parser;  // Write GDML file
+    parser.Write(GDMLOutFilename, logicExpHall);
+    G4cout<<"GDML file "<<GDMLOutFilename<<" written"<<G4endl;
+  }
   
   // Return the pointer to the physical experimental hall
   return physiExpHall;
-  
-  
 }
 
 WCSimLAPPDObject *WCSimDetectorConstruction::CreateLAPPDObject(G4String LAPPDType, G4String CollectionName2)

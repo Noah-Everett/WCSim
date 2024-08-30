@@ -99,6 +99,7 @@ public:
   void SetANNIEPhase2Geometryv5(); // phase 2 geometry -  alt later PMT layout
   void SetANNIEPhase2Geometryv6(); // phase 2 geometry -  entirely new Cylinder construction
   void SetANNIEPhase2Geometryv7(); // phase 2 geometry - read PMT positions from scan file
+  void SetANNIEPhase3Geometryv0(); // phase 3 geometry - read PMT positions from scan file
   
   G4int    GetTotalNumPmts(G4String key){
     if(std::find(WCTankCollectionNames.begin(), WCTankCollectionNames.end(), key)!=WCTankCollectionNames.end())
@@ -304,6 +305,7 @@ private:
   G4LogicalVolume* ConstructPMT(G4String,G4String, G4String detectorElement="tank");
   G4LogicalVolume* ConstructFlatFacedPMT(G4String PMTName, G4String CollectionName, G4String detectorElement="mrd");
   G4LogicalVolume* ConstructLAPPD(G4String,G4String);
+  G4LogicalVolume* ConstructArDewar(G4double t_outer_height, G4double t_outer_radius, G4double t_outer_thickness, G4double t_inner_height, G4double t_inner_radius, G4double t_inner_thickness);
 
   G4LogicalVolume* ConstructCaps(G4int zflip);
   void ConstructANNIECaps(G4int zflip);
@@ -348,6 +350,20 @@ private:
 				  const G4Transform3D&);
   void GetWCGeom(G4VPhysicalVolume*, int, int, 
 			      const G4Transform3D&);
+
+
+  G4bool WriteGDMLFile{false};
+  G4double m_outer_height;
+  G4double m_outer_radius;
+  G4double m_outer_thickness;
+  G4double m_inner_height;
+  G4double m_inner_radius;
+  G4double m_inner_thickness;
+  std::vector<G4VisAttributes*> m_ArDewarVA;
+  G4VisAttributes* dewar_outer_cylinder_VA;
+  G4VisAttributes* dewar_middle_vacuum_VA ;
+  G4VisAttributes* dewar_inner_cylinder_VA;
+  G4VisAttributes* dewar_inner_argon_VA   ;
 
   //---Volume lengths
 

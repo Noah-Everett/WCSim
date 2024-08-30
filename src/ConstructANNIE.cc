@@ -117,6 +117,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructANNIE()
   //               Load Inner structure GDML file
   //============================================================
   G4LogicalVolume* innerstructure_log;
+  G4VPhysicalVolume* innerstructure_PV;
   if(addGDMLinnerstructure){
     G4GDMLParser parser;
     parser.SetOverlapCheck(doOverlapCheck);
@@ -189,13 +190,14 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructANNIE()
 		//============================================================
 		if(WCDetectorName=="ANNIEp2v6") waterTank_log = ConstructANNIECylinder();
 		else if(WCDetectorName=="ANNIEp2v7") waterTank_log = ConstructANNIECylinderScan();
+    else if(WCDetectorName=="ANNIEp3v0") waterTank_log = ConstructANNIECylinderScan();
 		else  waterTank_log = ConstructCylinder();
 		//rotm->rotateZ(22.5*deg);
 		G4cout << "Putting tank at y_offset = "<<-tankyoffset<<", z_offset = "<<tankouterRadius+tankzoffset<<G4endl;
 		waterTank_phys = 
 			new G4PVPlacement(rotm,G4ThreeVector(0,-tankyoffset,tankouterRadius+tankzoffset),waterTank_log,"waterTank",expHall_log,false,0);
 		
-		if(WCDetectorName=="ANNIEp2v6" || WCDetectorName=="ANNIEp2v7"){
+		if(WCDetectorName=="ANNIEp2v6" || WCDetectorName=="ANNIEp2v7" || WCDetectorName=="ANNIEp3v0" ){
 			// Get logical and physical volumes of the water, within the steel barrel
 			int nDaughters = waterTank_log->GetNoDaughters();
 			for (int iDaughter = 0; iDaughter < nDaughters; iDaughter++){
@@ -240,9 +242,20 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructANNIE()
 											InnerStructureOpSurface);
 				
 				bordersurfaces.push_back(InnerStructureSurface_log);
+				innerstructure_PV = innerstructure_phys_placed;
 			}
 		}
 	}
+
+  //============================================================
+  //               Add Inner Argon Dewar        
+  //============================================================
+  // This is not great code. I do everything in the ConstructArDewar function.
+  // It is just easier given that this is temporary code.
+  if(WCDetectorName=="ANNIEp3v0") {
+    ConstructArDewar(innerstructure_PV);
+  }
+
 
   // Add markers for debugging (only debugging)
   /*

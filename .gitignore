@@ -1,4 +1,5 @@
 #ignore build results
+build/
 src/WCSimRootDict.cc
 src/WCSimRootDict.h
 libWCSim.a
@@ -66,3 +67,6 @@ src/WCSimRootDict.cxx
 # by definition can never be up to date in git, since it should store the hash
 # of the commit it is in, but this isn't known until it's committed.
 CommitHash.txt
+
+#ignore mac store files
+*.DS_Store

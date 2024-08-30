@@ -342,11 +342,14 @@ void WCSimWCSD::EndOfEvent(G4HCofThisEvent*)
 }
 
 void WCSimWCSD::ReadInPMTWiseQE(){
-
    std::ifstream pmtqefile("pmt_qe.txt");
    if(!pmtqefile.is_open()){
      G4cerr<<"WCSimWCSD::ReadInPMTWiseQE failed to find file 'pmt_qe.txt'"<<G4endl;
-     exit(1);
+     pmtqefile.open("../WCSim/pmt_qe.txt");
+     if(!pmtqefile.is_open()){
+         G4cerr<<"WCSimWCSD::ReadInPMTWiseQE failed to find file '../WCSim/pmt_qe.txt'"<<G4endl;
+         exit(1);
+     }
    }
    double temp_qe;
    while (pmtqefile.good()){
