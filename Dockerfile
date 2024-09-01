@@ -6,36 +6,36 @@ USER root
 
 ### install prerequisites
 RUN yum --disablerepo=epel install -y cmake \
-                   binutils \
-                   make \
-                   git \
-                   tar \
-                   wget \
-                   devtoolset-3-gcc \
-                   devtoolset-3-gcc-c++ \
-                   devtoolset-3-gcc-gfortran \
-                   which \
-                   unzip \
-                   cvs \
-                   automake \
-                   file \
-                   patch \
-                   bzip2-devel \
-                   libxml2 \
-                   libxml2-devel \
-                   libtool \
-                   gsl-devel \
-                   expat-devel \
-                   xerces-c \
-                   xerces-c-devel \
-                   libX11-devel \
-                   libXmu-devel \
-                   libGL-devel \
-                   libGLU-devel \
-                   libXpm-devel \
-                   libXft \
-                   libXft-devel \
-                   osg-wn-client \
+                                      binutils \
+                                      make \
+                                      git \
+                                      tar \
+                                      wget \
+                                      devtoolset-3-gcc \
+                                      devtoolset-3-gcc-c++ \
+                                      devtoolset-3-gcc-gfortran \
+                                      which \
+                                      unzip \
+                                      cvs \
+                                      automake \
+                                      file \
+                                      patch \
+                                      bzip2-devel \
+                                      libxml2 \
+                                      libxml2-devel \
+                                      libtool \
+                                      gsl-devel \
+                                      expat-devel \
+                                      xerces-c \
+                                      xerces-c-devel \
+                                      libX11-devel \
+                                      libXmu-devel \
+                                      libGL-devel \
+                                      libGLU-devel \
+                                      libXpm-devel \
+                                      libXft \
+                                      libXft-devel \
+                                      osg-wn-client \
 && yum clean all \
 && rm -rf /var/cache/yum
 
